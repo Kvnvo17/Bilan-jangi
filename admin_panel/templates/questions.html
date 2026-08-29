@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Savollar — Bilim Jangi Admin{% endblock %}
+{% block content %}
+<h1 class="page-title">❓ Savollar banki</h1>
+
+<div style="display:flex; gap:10px; margin-bottom:16px">
+    <form method="get" action="/admin/questions" class="search-form" style="flex:1; margin-bottom:0">
+        <input type="text" name="q" placeholder="Savol matnidan qidirish" value="{{ q }}">
+        <button type="submit">🔍</button>
+    </form>
+    <a href="/admin/questions/fetch-external" style="background:#7C3AED; color:#fff; padding:10px 16px; border-radius:10px; text-decoration:none; font-size:14px; white-space:nowrap">🌐 Internetdan olish</a>
+</div>
+
+{% if external is not none %}
+<div class="notice-box" style="margin-bottom:16px">
+    Open Trivia DB (opentdb.com) dan {{ external|length }} ta tasodifiy savol olindi (inglizcha).
+    Kerak bo'lsa matnni tahrirlab, "✅ Bankka qo'shish" tugmasini bosing.
+    {% if external_error %}<br><b style="color:#B91C1C">{{ external_error }}</b>{% endif %}
+</div>
+{% for eq in external %}
+<form method="post" action="/admin/questions/add-external" class="question-form-card">
+    <input type="text" name="text" value="{{ eq.text }}" class="qf-text">
+    <div class="qf-options">
+        {% for opt in eq.options %}
+        <input type="text" name="option_{{ ['a','b','c','d'][loop.index0] }}" value="{{ opt }}">
+        {% endfor %}
+    </div>
+    <div class="qf-row">
+        <select name="correct_option">
+            {% for letter in ['A','B','C','D'] %}
+            <option value="{{ letter }}" {% if letter == eq.correct_letter %}selected{% endif %}>To'g'ri: {{ letter }}</option>
+            {% endfor %}
+        </select>
+        <input type="text" name="category" value="{{ eq.category }}" placeholder="Kategoriya">
+        <input type="text" name="difficulty" value="{{ eq.difficulty }}" placeholder="Qiyinlik">
+        <button type="submit">✅ Bankka qo'shish</button>
+    </div>
+</form>
+{% endfor %}
+<hr style="margin:20px 0; border:none; border-top:1px solid #E5E7EB">
+{% endif %}
+
+<h2 style="font-size:16px; margin-bottom:10px">➕ Yangi savol qo'shish</h2>
+<form method="post" action="/admin/questions/add" class="question-form-card">
+    <input type="text" name="text" placeholder="Savol matni" class="qf-text" required>
+    <div class="qf-options">
+        <input type="text" name="option_a" placeholder="A variant" required>
+        <input type="text" name="option_b" placeholder="B variant" required>
+        <input type="text" name="option_c" placeholder="C variant" required>
+        <input type="text" name="option_d" placeholder="D variant" required>
+    </div>
+    <div class="qf-row">
+        <select name="correct_option">
+            <option value="A">To'g'ri: A</option><option value="B">To'g'ri: B</option>
+            <option value="C">To'g'ri: C</option><option value="D">To'g'ri: D</option>
+        </select>
+        <select name="difficulty">
+            <option value="easy">Oson</option><option value="medium" selected>O'rta</option><option value="hard">Qiyin</option>
+        </select>
+        <input type="text" name="category" placeholder="Kategoriya" value="umumiy">
+        <button type="submit">➕ Qo'shish</button>
+    </div>
+</form>
+
+<h2 style="font-size:16px; margin:20px 0 10px">📋 Mavjud savollar ({{ questions|length }})</h2>
+{% for question in questions %}
+<form method="post" action="/admin/questions/{{ question.id }}/edit" class="question-form-card {{ 'inactive-card' if not question.is_active }}">
+    <input type="text" name="text" value="{{ question.text }}" class="qf-text">
+    <div class="qf-options">
+        <input type="text" name="option_a" value="{{ question.option_a }}">
+        <input type="text" name="option_b" value="{{ question.option_b }}">
+        <input type="text" name="option_c" value="{{ question.option_c }}">
+        <input type="text" name="option_d" value="{{ question.option_d }}">
+    </div>
+    <div class="qf-row">
+        <select name="correct_option">
+            {% for letter in ['A','B','C','D'] %}
+            <option value="{{ letter }}" {% if letter == question.correct_option %}selected{% endif %}>To'g'ri: {{ letter }}</option>
+            {% endfor %}
+        </select>
+        <select name="difficulty">
+            {% for d in ['easy','medium','hard'] %}
+            <option value="{{ d }}" {% if d == question.difficulty %}selected{% endif %}>{{ d }}</option>
+            {% endfor %}
+        </select>
+        <span class="mini-badge">{{ question.category }}</span>
+        <button type="submit">💾 Saqlash</button>
+    </div>
+</form>
+<form method="post" action="/admin/questions/{{ question.id }}/delete" style="margin:-8px 0 14px">
+    <button type="submit" class="danger" style="font-size:12px; padding:6px 10px">🗑️ {{ 'Faollashtirish' if not question.is_active else "O'chirish" }}</button>
+</form>
+{% else %}
+<div class="notice-box">Savol topilmadi</div>
+{% endfor %}
+{% endblock %}

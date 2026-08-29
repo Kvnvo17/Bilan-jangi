@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Kirish — Bilim Jangi Admin{% endblock %}
+{% block content %}
+<div class="login-wrap">
+    <form class="login-card" method="post" action="/admin/login">
+        <div class="login-logo">🅱️</div>
+        <h1>Bilim Jangi</h1>
+        <p class="muted">Admin Panelga kirish</p>
+        {% if error %}<div class="error-box">{{ error }}</div>{% endif %}
+        <label>Login</label>
+        <input type="text" name="username" required autofocus>
+        <label>Parol</label>
+        <input type="password" name="password" required>
+        <button type="submit">Kirish</button>
+    </form>
+</div>
+{% endblock %}

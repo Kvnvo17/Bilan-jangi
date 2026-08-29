@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Reklama — Bilim Jangi Admin{% endblock %}
+{% block content %}
+<h1 class="page-title">📢 Reklama (barcha foydalanuvchilarga xabar)</h1>
+
+{% if result %}
+<div class="notice-box" style="margin-bottom:16px">
+    ✅ Yuborildi: {{ result.sent }} / {{ result.total }} ({{ result.failed }} ta muvaffaqiyatsiz —
+    odatda bot bilan hali suhbat boshlamagan foydalanuvchilar)
+</div>
+{% endif %}
+
+<form method="post" action="/admin/broadcast/send" class="question-form-card"
+      onsubmit="return confirm('Xabar barcha faol foydalanuvchilarga yuboriladi. Davom etasizmi?')">
+    <textarea name="text" class="text-input" placeholder="Xabar matni" required style="min-height:100px"></textarea>
+    <input type="url" name="image_url" class="text-input" placeholder="Rasm havolasi (ixtiyoriy)">
+    <div class="qf-row">
+        <input type="text" name="button_text" placeholder="Tugma matni (ixtiyoriy)">
+        <input type="url" name="button_url" placeholder="Tugma havolasi (ixtiyoriy)">
+    </div>
+    <button type="submit" style="margin-top:10px">📢 Barchaga yuborish</button>
+</form>
+{% endblock %}

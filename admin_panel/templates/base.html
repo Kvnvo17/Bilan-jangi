@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bilim Jangi — Admin{% endblock %}</title>
+    <link rel="stylesheet" href="/admin-static/admin.css">
+</head>
+<body>
+    {% if request.session.get('admin_logged_in') %}
+    <div class="topbar">
+        <div class="brand">🅱️ Bilim Jangi <span>Admin Panel</span></div>
+        <nav>
+            <a href="/admin/dashboard">📊 Dashboard</a>
+            <a href="/admin/users">👥 Foydalanuvchilar</a>
+            <a href="/admin/questions">❓ Savollar</a>
+            <a href="/admin/missions">🎯 Missiyalar</a>
+            <a href="/admin/shop">🛒 Do'kon</a>
+            <a href="/admin/products">🏪 Tasdiqlash</a>
+            <a href="/admin/payments">💳 To'lovlar</a>
+            <a href="/admin/broadcast">📢 Reklama</a>
+            <a href="/admin/logs">📝 Loglar</a>
+            <a href="/admin/logout" class="logout">🚪 Chiqish</a>
+        </nav>
+    </div>
+    {% endif %}
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

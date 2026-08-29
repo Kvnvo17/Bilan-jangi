@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}To'lovlar — Bilim Jangi Admin{% endblock %}
+{% block content %}
+<h1 class="page-title">💳 To'lovlar tarixi</h1>
+
+<div class="search-form" style="flex-wrap:wrap">
+    {% for s in [('', 'Hammasi'), ('awaiting_screenshot','Kutilmoqda'), ('pending_approval','Tekshiruvda'), ('approved','Tasdiqlangan'), ('rejected','Rad etilgan'), ('expired','Muddati tugagan')] %}
+    <a href="/admin/payments?status={{ s[0] }}" style="padding:8px 12px; border-radius:10px; background:{{ '#2563EB' if status==s[0] else '#fff' }}; color:{{ '#fff' if status==s[0] else '#374151' }}; text-decoration:none; font-size:13px; border:1px solid #E5E7EB">{{ s[1] }}</a>
+    {% endfor %}
+</div>
+
+<table class="data-table">
+    <thead>
+        <tr><th>ID</th><th>Foydalanuvchi</th><th>Mahsulot</th><th>Summa</th><th>Holat</th><th>Sana</th></tr>
+    </thead>
+    <tbody>
+        {% for order, u, p in rows %}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ u.username or u.first_name }} ({{ u.telegram_id }})</td>
+            <td>{{ p.name }}</td>
+            <td>{{ "%.0f"|format(order.amount) }} so'm</td>
+            <td>{{ order.status }}</td>
+            <td>{{ order.created_at.strftime("%Y-%m-%d %H:%M") }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6">To'lov tarixi bo'sh</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

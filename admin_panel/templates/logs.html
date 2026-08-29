@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Loglar — Bilim Jangi Admin{% endblock %}
+{% block content %}
+<h1 class="page-title">📝 Loglar</h1>
+
+<div class="search-form" style="flex-wrap:wrap">
+    {% for a in ['', 'coin_adjust', 'ban_user', 'unban_user', 'product_approve', 'product_reject', 'product_update', 'purchase_coin', 'purchase_money_approved', 'purchase_money_rejected', 'broadcast_sent', 'question_add', 'daily_mission_update', 'monthly_mission_update'] %}
+    <a href="/admin/logs?action={{ a }}" style="padding:7px 11px; border-radius:10px; background:{{ '#2563EB' if action==a else '#fff' }}; color:{{ '#fff' if action==a else '#374151' }}; text-decoration:none; font-size:12px; border:1px solid #E5E7EB">{{ a or 'Hammasi' }}</a>
+    {% endfor %}
+</div>
+
+<table class="data-table">
+    <thead><tr><th>Vaqt</th><th>Amal</th><th>Kim</th><th>Tafsilot</th></tr></thead>
+    <tbody>
+        {% for log in logs %}
+        <tr>
+            <td>{{ log.created_at.strftime("%Y-%m-%d %H:%M") }}</td>
+            <td><span class="mini-badge">{{ log.action }}</span></td>
+            <td>{{ log.actor_telegram_id or 'web admin' }}</td>
+            <td style="font-size:12px; color:#6B7280">{{ log.details }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4">Loglar hozircha bo'sh</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

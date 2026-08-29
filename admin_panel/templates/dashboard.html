@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Bilim Jangi Admin{% endblock %}
+{% block content %}
+<h1 class="page-title">📊 Dashboard</h1>
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-value">{{ total_users }}</div>
+        <div class="stat-label">👥 Jami foydalanuvchilar</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ "%.2f"|format(total_b_coin) }}</div>
+        <div class="stat-label">🪙 Jami B Coin</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ total_correct }}</div>
+        <div class="stat-label">✅ Jami to'g'ri javoblar</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ total_questions }}</div>
+        <div class="stat-label">❓ Savollar bazasi</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ banned_users }}</div>
+        <div class="stat-label">🚫 Ban qilinganlar</div>
+    </div>
+</div>
+<div class="notice-box">
+    Bu 1-bosqich Dashboard. Duel/Turnir/Do'kon/Premium/Vaucher/To'lov statistikasi
+    keyingi bosqichlarda shu sahifaga qo'shiladi.
+</div>
+{% endblock %}

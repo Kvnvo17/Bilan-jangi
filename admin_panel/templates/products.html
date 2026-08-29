@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Mahsulotlar — Bilim Jangi Admin{% endblock %}
+{% block content %}
+<h1 class="page-title">🏪 Tasdiq kutayotgan mahsulotlar</h1>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>ID</th><th>Nomi</th><th>Katalog</th><th>Narx</th><th>Sotuvchi</th><th>Amallar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p, u in rows %}
+        <tr>
+            <td>{{ p.id }}</td>
+            <td>{{ p.name }}</td>
+            <td>{{ p.catalog }}</td>
+            <td>{{ "%.2f"|format(p.price_amount) }} 🪙</td>
+            <td>{{ u.username or u.first_name }} ({{ u.telegram_id }})</td>
+            <td class="actions-cell">
+                <form method="post" action="/admin/products/{{ p.id }}/approve" class="inline-form">
+                    <button type="submit">✅ Tasdiqlash</button>
+                </form>
+                <form method="post" action="/admin/products/{{ p.id }}/reject" class="inline-form">
+                    <button type="submit" class="danger">❌ Rad etish</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6">Tasdiq kutayotgan mahsulot yo'q</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
