@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Odam bilan Duel — Bilim Jangi</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="app duel-app">
+        <header class="duel-header">
+            <button class="back-btn" onclick="location.href='/'">←</button>
+            <div class="duel-title">👤 Odam bilan Duel</div>
+        </header>
+
+        <div id="setupBox" class="question-card">
+            <div class="question-text">Do'stingizni Telegram username yoki ID orqali chaqiring:</div>
+            <input type="text" id="targetInput" class="text-input" placeholder="username yoki telegram_id">
+            <button class="next-btn" onclick="createDuel()">⚔️ Duel boshlash</button>
+            <div class="mission-desc" style="margin-top:10px">
+                Yoki ushbu havolani do'stingizga yuboring — u ochganda avtomatik duelga qo'shiladi.
+            </div>
+        </div>
+
+        <div id="waitingBox" class="question-card hidden">
+            <div class="question-text">⏳ Raqib kutilmoqda...</div>
+            <div class="mission-desc" id="shareLink"></div>
+            <button class="mini-btn primary" onclick="copyLink()">🔗 Havolani nusxalash</button>
+        </div>
+
+        <div id="scoreBoard" class="score-board hidden"></div>
+
+        <div id="questionCard" class="question-card hidden"></div>
+
+        <div id="resultBanner" class="result-banner hidden"></div>
+        <div id="finishBanner" class="result-banner hidden"></div>
+
+        <div id="toast" class="toast"></div>
+    </div>
+    <script src="/static/js/human_duel.js"></script>
+</body>
+</html>

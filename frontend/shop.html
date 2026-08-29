@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Do‘kon — Bilim Jangi</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="app">
+        <header class="duel-header">
+            <button class="back-btn" onclick="location.href='/'">←</button>
+            <div class="duel-title">🛒 Do‘kon</div>
+            <div class="coin-badge small">🪙 <span id="bCoin">0.00</span></div>
+        </header>
+
+        <div class="catalog-scroll">
+            <button class="cat-chip active" data-cat="" onclick="selectCatalog('')">Hammasi</button>
+            <button class="cat-chip" data-cat="premium" onclick="selectCatalog('premium')">👑 Premium</button>
+            <button class="cat-chip" data-cat="vaucher" onclick="selectCatalog('vaucher')">🎟️ Vaucherlar</button>
+            <button class="cat-chip" data-cat="frame" onclick="selectCatalog('frame')">🖼️ Ramkalar</button>
+            <button class="cat-chip" data-cat="nick_decor" onclick="selectCatalog('nick_decor')">✨ Nik bezaklari</button>
+            <button class="cat-chip" data-cat="background" onclick="selectCatalog('background')">🏞️ Orqa fonlar</button>
+            <button class="cat-chip" data-cat="badge" onclick="selectCatalog('badge')">🏅 Badge'lar</button>
+            <button class="cat-chip" data-cat="seller" onclick="selectCatalog('seller')">🏪 Sotuvchilar</button>
+        </div>
+
+        <div style="display:flex; gap:8px; margin:12px 0">
+            <button class="mini-btn primary" style="flex:1; padding:10px" onclick="location.href='/shop/sell'">➕ Mahsulot joylash</button>
+            <button class="mini-btn" style="flex:1; padding:10px" onclick="location.href='/sklad'">📦 Sklad</button>
+        </div>
+
+        <div id="productsList" class="products-grid"></div>
+        <div id="toast" class="toast"></div>
+    </div>
+    <script src="/static/js/shop.js"></script>
+</body>
+</html>

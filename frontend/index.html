@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bilim Jangi</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="app">
+        <header class="profile-header">
+            <img id="avatar" class="avatar" src="https://ui-avatars.com/api/?background=2563EB&color=fff&name=B" alt="avatar">
+            <div class="profile-info">
+                <div id="firstName" class="profile-name">Foydalanuvchi</div>
+                <div class="profile-level">Level <span id="level">1</span></div>
+            </div>
+            <div class="coin-badge">🪙 <span id="bCoin">0.00</span></div>
+        </header>
+
+        <section class="main-buttons">
+            <button class="big-btn duel-btn" onclick="location.href='/duel'">
+                <span class="big-btn-icon">⚔️</span>
+                <span>1v1 Duel</span>
+            </button>
+            <button class="big-btn mass-btn" onclick="location.href='/mass-duel'">
+                <span class="big-btn-icon">🌍</span>
+                <span>Ommaviy Duel</span>
+            </button>
+        </section>
+
+        <section class="secondary-buttons">
+            <button class="mid-btn" onclick="location.href='/friends'">👥 Do‘stlar</button>
+            <button class="mid-btn" onclick="location.href='/ranking'">🏆 Reyting</button>
+        </section>
+
+        <section class="secondary-buttons" style="margin-top:10px">
+            <button class="mid-btn" onclick="location.href='/monthly-missions'">🎯 Oylik missiyalar</button>
+            <button class="mid-btn" onclick="location.href='/tournament'">🏅 Turnir</button>
+        </section>
+
+        <section class="secondary-buttons" style="margin-top:10px">
+            <button class="mid-btn" onclick="location.href='/shop'">🛒 Do‘kon</button>
+            <button class="mid-btn" onclick="location.href='/sklad'">📦 Sklad</button>
+        </section>
+
+        <section class="daily-missions">
+            <h2>📅 Kunlik missiyalar</h2>
+            <div id="missionsList" class="missions-list">
+                <div class="mission-skeleton"></div>
+                <div class="mission-skeleton"></div>
+                <div class="mission-skeleton"></div>
+            </div>
+        </section>
+
+        <div id="toast" class="toast"></div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

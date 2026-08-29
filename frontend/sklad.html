@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sklad — Bilim Jangi</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="app">
+        <header class="duel-header">
+            <button class="back-btn" onclick="location.href='/'">←</button>
+            <div class="duel-title">📦 Sklad</div>
+            <div class="coin-badge small">🪙 <span id="bCoin">0.00</span></div>
+        </header>
+
+        <div class="mission-desc" style="margin-bottom:12px">
+            Sotib olingan mahsulotlaringiz shu yerda. "Qo'llash" — mahsulotni faollashtiradi.
+            "50% qaytarish" — mahsulotni qaytarib, narxining yarmini B Coin ko'rinishida oling
+            (masalan 5 🪙 → 2.5 🪙 qaytadi). Sotuvchidan coin qaytarib olinmaydi.
+        </div>
+
+        <div id="inventoryList"></div>
+        <div id="toast" class="toast"></div>
+    </div>
+    <script src="/static/js/sklad.js"></script>
+</body>
+</html>

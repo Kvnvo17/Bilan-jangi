@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mahsulot joylash — Bilim Jangi</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="app">
+        <header class="duel-header">
+            <button class="back-btn" onclick="location.href='/shop'">←</button>
+            <div class="duel-title">➕ Mahsulot joylash</div>
+        </header>
+
+        <div class="mission-desc" style="margin-bottom:12px">
+            Kuniga faqat 3 ta mahsulot joylashingiz mumkin. Joylangan mahsulot admin tasdig'idan
+            keyin darhol "🏪 Sotuvchilar" katalogida chiqadi (uni faqat faol vaucheri bor
+            foydalanuvchilar ko'ra oladi). Narx: Badge uchun 500–2000, boshqa turlar uchun 100–1000 B Coin.
+        </div>
+
+        <div class="question-card">
+            <select id="pCatalog" class="text-input">
+                <option value="seller">🏪 Oddiy mahsulot</option>
+                <option value="frame">🖼️ Profil ramkasi</option>
+                <option value="nick_decor">✨ Nik bezagi</option>
+                <option value="background">🏞️ Orqa fon</option>
+                <option value="badge">🏅 Badge</option>
+            </select>
+            <input type="text" id="pName" class="text-input" placeholder="Mahsulot nomi">
+            <textarea id="pDesc" class="text-input" placeholder="Tavsif"></textarea>
+            <input type="url" id="pImage" class="text-input" placeholder="Rasm/video havolasi (URL)">
+            <input type="number" id="pPrice" class="text-input" placeholder="Narx (B Coin)">
+            <button class="next-btn" onclick="submitProduct()">📤 Yuborish (admin tasdig'iga)</button>
+        </div>
+
+        <div id="toast" class="toast"></div>
+    </div>
+    <script src="/static/js/shop_sell.js"></script>
+</body>
+</html>

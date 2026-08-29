@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Duel xonasi — Bilim Jangi</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="app duel-app">
+        <header class="duel-header">
+            <button class="back-btn" onclick="location.href='/mass-duel'">←</button>
+            <div class="duel-title" id="duelTitle">Ommaviy Duel</div>
+            <div class="coin-badge small">🪙 <span id="bCoin">0.00</span></div>
+        </header>
+
+        <div id="infoBox" class="mission-desc"></div>
+
+        <div class="duel-mode-tabs">
+            <button class="tab-btn active" data-tab="play" onclick="switchTab('play')">▶️ O'ynash</button>
+            <button class="tab-btn" data-tab="add" onclick="switchTab('add')">➕ Savol qo'shish</button>
+            <button class="tab-btn" data-tab="board" onclick="switchTab('board')">🏆 Reyting</button>
+        </div>
+
+        <div id="playTab">
+            <div id="questionCard" class="question-card">
+                <div class="question-loading">Yuklanmoqda...</div>
+            </div>
+            <div id="resultBanner" class="result-banner hidden"></div>
+            <button id="nextBtn" class="next-btn hidden" onclick="loadNextQuestion()">Keyingi savol →</button>
+        </div>
+
+        <div id="addTab" class="hidden">
+            <div class="question-card">
+                <input type="text" id="qText" class="text-input" placeholder="Savol matni">
+                <input type="text" id="qA" class="text-input" placeholder="A variant">
+                <input type="text" id="qB" class="text-input" placeholder="B variant">
+                <input type="text" id="qC" class="text-input" placeholder="C variant">
+                <input type="text" id="qD" class="text-input" placeholder="D variant (ixtiyoriy)">
+                <select id="qCorrect" class="text-input">
+                    <option value="A">To'g'ri javob: A</option>
+                    <option value="B">To'g'ri javob: B</option>
+                    <option value="C">To'g'ri javob: C</option>
+                    <option value="D">To'g'ri javob: D</option>
+                </select>
+                <button class="next-btn" onclick="addQuestion()">➕ Savolni qo'shish</button>
+            </div>
+        </div>
+
+        <div id="boardTab" class="hidden friends-list"></div>
+
+        <button id="closeBtn" class="next-btn hidden" style="background:#DC2626; margin-top:14px" onclick="closeDuel()">🔒 Duelni yopish</button>
+
+        <div id="toast" class="toast"></div>
+    </div>
+    <script src="/static/js/mass_duel_room.js"></script>
+</body>
+</html>

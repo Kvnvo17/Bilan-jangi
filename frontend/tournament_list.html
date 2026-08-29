@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Turnir — Bilim Jangi</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="app">
+        <header class="duel-header">
+            <button class="back-btn" onclick="location.href='/'">←</button>
+            <div class="duel-title">🏅 Turnir</div>
+        </header>
+
+        <div class="question-card">
+            <div class="question-text">➕ Yangi turnir yaratish</div>
+            <input type="text" id="tName" class="text-input" placeholder="Turnir nomi">
+            <input type="text" id="tPrize" class="text-input" placeholder="Yutuq (masalan: 50 000 so'm)">
+            <button class="next-btn" onclick="createTournament()">🏅 Yaratish (max 100 kishi, Top 1)</button>
+            <button class="next-btn" id="adminCreateBtn" style="background:#7C3AED; display:none" onclick="createTournament(true)">
+                👑 Admin turnir yaratish (max 200 kishi, Top 3)
+            </button>
+        </div>
+
+        <div class="question-card" style="margin-top:14px">
+            <div class="question-text">🔑 Kod orqali qo'shilish</div>
+            <input type="text" id="joinCodeInput" class="text-input" placeholder="Turnir kodi">
+            <button class="next-btn" onclick="joinByCode()">Qo'shilish</button>
+        </div>
+
+        <h2 style="margin-top:20px; font-size:16px">🔥 Faol turnirlar</h2>
+        <div id="tournamentsList" class="friends-list"></div>
+
+        <div id="toast" class="toast"></div>
+    </div>
+    <script src="/static/js/tournament_list.js"></script>
+</body>
+</html>

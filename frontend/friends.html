@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Do‘stlar — Bilim Jangi</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="app">
+        <header class="duel-header">
+            <button class="back-btn" onclick="location.href='/'">←</button>
+            <div class="duel-title">👥 Do‘stlar</div>
+        </header>
+
+        <div class="duel-mode-tabs">
+            <button class="tab-btn active" data-tab="friends" onclick="switchTab('friends')">Do‘stlarim</button>
+            <button class="tab-btn" data-tab="incoming" onclick="switchTab('incoming')">Kelgan</button>
+            <button class="tab-btn" data-tab="outgoing" onclick="switchTab('outgoing')">Yuborgan</button>
+            <button class="tab-btn" data-tab="search" onclick="switchTab('search')">🔍 Qidirish</button>
+        </div>
+
+        <div id="searchBox" class="search-box hidden">
+            <input type="text" id="searchInput" placeholder="Username yoki ID">
+            <button onclick="doSearch()">Qidirish</button>
+        </div>
+
+        <div id="listContainer" class="friends-list"></div>
+
+        <div id="toast" class="toast"></div>
+    </div>
+    <script src="/static/js/friends.js"></script>
+</body>
+</html>
