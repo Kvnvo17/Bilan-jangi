@@ -1,11 +1,11 @@
 """
 Bilim Jangi — Telegram bot (aiogram 3.x).
-Polling rejimida ishga tushadi (FastAPI startup eventida background task sifatida).
 """
 import asyncio
 import logging
 
 from aiogram import Bot, Dispatcher, Router
+from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.types import (
@@ -23,70 +23,111 @@ logger = logging.getLogger("bilim_jangi.bot")
 router = Router()
 
 WELCOME_TEXT = (
-    "Assalomu alaykum! Bilim Jangi'ga xush kelibsiz. "
-    "Bilimingizni sinang, B Coin yig‘ing va turnirlarda g‘olib bo‘ling!"
+    "Assalomu alaykum! Bilim Jangi'ga xush kelibsiz.\n\n"
+    "🧠 Bilimingizni sinang\n"
+    "💰 B Coin yig'ing\n"
+    "🏆 Turnirlarda qatnashing"
 )
 
 
 def build_start_keyboard() -> InlineKeyboardMarkup:
     webapp_url = settings.WEBAPP_URL.rstrip("/")
+
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [
                 InlineKeyboardButton(
                     text="🧠 Bilim Jangi",
-                    web_app=WebAppInfo(url=webapp_url),
+                    web_app=WebAppInfo(url=webapp_url)
                 )
             ],
             [
                 InlineKeyboardButton(
-                    text="📢 Yangiliklar", url=settings.ADMIN_CHANNEL_URL
+                    text="📢 Yangiliklar",
+                    url=settings.ADMIN_CHANNEL_URL
                 ),
                 InlineKeyboardButton(
-                    text="🆘 Yordam", url=f"https://t.me/{settings.ADMIN_USERNAME}"
-                ),
+                    text="🆘 Yordam",
+                    url=f"https://t.me/{settings.ADMIN_USERNAME}"
+                )
             ],
             [
                 InlineKeyboardButton(
                     text="📚 O‘rganish",
-                    web_app=WebAppInfo(url=f"{webapp_url}/tutorial"),
+                    web_app=WebAppInfo(
+                        url=f"{webapp_url}/tutorial"
+                    )
                 )
-            ],
+            ]
         ]
     )
 
 
 @router.message(CommandStart())
-async def cmd_start(message: Message) -> None:
+async def cmd_start(message: Message):
+    logger.info(f"/start -> {message.from_user.id}")
+
     keyboard = build_start_keyboard()
-    if settings.START_PHOTO_URL:
-        try:
+
+    try:
+        if settings.START_PHOTO_URL:
             await message.answer_photo(
                 photo=settings.START_PHOTO_URL,
                 caption=WELCOME_TEXT,
-                reply_markup=keyboard,
+                reply_markup=keyboard
             )
-            return
-        except Exception:
-            logger.exception("START_PHOTO_URL yuborib bo'lmadi, matn bilan yuboriladi")
-    await message.answer(WELCOME_TEXT, reply_markup=keyboard)
+        else:
+            await message.answer(
+                WELCOME_TEXT,
+                reply_markup=keyboard
+            )
+
+    except Exception as e:
+        logger.exception(f"START ERROR: {e}")
+
+        await message.answer(
+            WELCOME_TEXT,
+            reply_markup=keyboard
+        )
 
 
-def create_bot_and_dispatcher() -> tuple[Bot, Dispatcher]:
-    bot = Bot(token=settings.BOT_TOKEN, parse_mode=ParseMode.HTML)
+def create_bot_and_dispatcher():
+    bot = Bot(
+        token=settings.BOT_TOKEN,
+        default=DefaultBotProperties(
+            parse_mode=ParseMode.HTML
+        )
+    )
+
     dp = Dispatcher()
+
     dp.include_router(router)
     dp.include_router(payment_router)
+
     return bot, dp
 
 
-async def start_polling() -> None:
+async def start_polling():
+    logger.info("========== BOT START ==========")
+
     bot, dp = create_bot_and_dispatcher()
-    await bot.delete_webhook(drop_pending_updates=True)
-    logger.info("Bilim Jangi bot polling boshlandi")
-    await dp.start_polling(bot)
+
+    try:
+        me = await bot.get_me()
+        logger.info(f"Bot: @{me.username}")
+
+        await bot.delete_webhook(
+            drop_pending_updates=True
+        )
+
+        logger.info("Polling boshlandi")
+
+        await dp.start_polling(bot)
+
+    except Exception as e:
+        logger.exception(f"BOT ERROR: {e}")
 
 
-def run_bot_background_task() -> asyncio.Task:
-    """FastAPI startup eventidan chaqiriladi — botni background task sifatida ishga tushiradi."""
+def run_bot_background_task():
+    logger.info("Background task yaratildi")
     return asyncio.create_task(start_polling())
