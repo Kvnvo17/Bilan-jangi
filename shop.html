@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Do'kon — Bilim Jangi Admin{% endblock %}
+{% block content %}
+<h1 class="page-title">🛒 Do'kon boshqaruvi</h1>
+
+<div class="search-form" style="flex-wrap:wrap">
+    {% for c in [('', 'Hammasi'), ('premium','👑 Premium'), ('vaucher','🎟️ Vaucher'), ('frame','🖼️ Ramka'), ('nick_decor',"✨ Nik"), ('background','🏞️ Fon'), ('badge','🏅 Badge'), ('seller','🏪 Sotuvchi')] %}
+    <a href="/admin/shop?catalog={{ c[0] }}" style="padding:8px 12px; border-radius:10px; background:{{ '#2563EB' if catalog==c[0] else '#fff' }}; color:{{ '#fff' if catalog==c[0] else '#374151' }}; text-decoration:none; font-size:13px; border:1px solid #E5E7EB">{{ c[1] }}</a>
+    {% endfor %}
+</div>
+
+{% for p in products %}
+<form method="post" action="/admin/shop/{{ p.id }}/update" class="question-form-card">
+    <div class="qf-row" style="margin-bottom:8px">
+        <span class="mini-badge">{{ p.catalog }}</span>
+        {% if p.seller_user_id %}<span class="mini-badge admin-badge">🏪 sotuvchi #{{ p.seller_user_id }}</span>{% endif %}
+        {% if p.is_hidden %}<span class="mini-badge" style="background:#FEE2E2;color:#B91C1C">yashirilgan</span>{% endif %}
+    </div>
+    <input type="text" name="name" value="{{ p.name }}" class="qf-text" placeholder="Nomi">
+    <textarea name="description" class="text-input" style="min-height:50px">{{ p.description }}</textarea>
+    <div class="qf-row">
+        <input type="number" step="0.01" name="price_amount" value="{{ p.price_amount }}" placeholder="Narx" style="width:100px">
+        <span class="mini-badge">{{ 'so\'m' if p.price_type == 'money' else 'B Coin' }}</span>
+        {% if p.catalog == 'premium' %}
+        <input type="number" name="bonus_percent" value="{{ p.bonus_percent or 0 }}" placeholder="Bonus %" style="width:90px">
+        {% endif %}
+        {% if p.catalog == 'vaucher' %}
+        <input type="number" name="voucher_days" value="{{ p.voucher_days or 0 }}" placeholder="Kun" style="width:70px">
+        <input type="number" name="voucher_product_count" value="{{ p.voucher_product_count or 0 }}" placeholder="Mahsulot soni" style="width:110px">
+        {% if p.is_vip_plus %}
+        <input type="number" name="voucher_paid_count" value="{{ p.voucher_paid_count or 0 }}" placeholder="Pullik soni" style="width:100px">
+        {% endif %}
+        {% endif %}
+        <label style="font-size:12px"><input type="checkbox" name="is_hidden" {% if p.is_hidden %}checked{% endif %}> Yashirish</label>
+        <button type="submit">💾 Saqlash</button>
+    </div>
+</form>
+<form method="post" action="/admin/shop/{{ p.id }}/delete" style="margin:-8px 0 14px">
+    <button type="submit" class="danger" style="font-size:12px; padding:6px 10px">🗑️ Do'kondan olib tashlash</button>
+</form>
+{% else %}
+<div class="notice-box">Bu katalogda mahsulot yo'q</div>
+{% endfor %}
+{% endblock %}
