@@ -1,0 +1,416 @@
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #F5F7FA;
+    font-family: 'Segoe UI', Roboto, -apple-system, Arial, sans-serif;
+    color: #1F2937;
+}
+.app {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 16px 16px 40px;
+    min-height: 100vh;
+}
+
+/* --- Profile header --- */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #2563EB, #1E40AF);
+    border-radius: 20px;
+    padding: 16px;
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(37, 99, 235, .25);
+}
+.avatar {
+    width: 54px; height: 54px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.6);
+    object-fit: cover;
+}
+.profile-info { flex: 1; }
+.profile-name { font-weight: 700; font-size: 16px; }
+.profile-level { font-size: 13px; opacity: .85; margin-top: 2px; }
+.coin-badge {
+    background: rgba(255,255,255,.18);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-weight: 700;
+    font-size: 14px;
+    white-space: nowrap;
+}
+.coin-badge.small { padding: 6px 10px; font-size: 13px; }
+
+/* --- Main buttons --- */
+.main-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 18px;
+}
+.big-btn {
+    border: none;
+    border-radius: 18px;
+    padding: 22px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    color: #fff;
+    transition: transform .1s ease;
+}
+.big-btn:active { transform: scale(.97); }
+.big-btn-icon { font-size: 30px; }
+.duel-btn { background: linear-gradient(135deg, #F59E0B, #D97706); }
+.mass-btn { background: linear-gradient(135deg, #10B981, #059669); }
+
+/* --- Secondary buttons --- */
+.secondary-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+}
+.mid-btn {
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 14px;
+    padding: 14px 8px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    color: #374151;
+}
+.mid-btn:active { background: #F3F4F6; }
+
+/* --- Daily missions --- */
+.daily-missions { margin-top: 22px; }
+.daily-missions h2 { font-size: 16px; margin-bottom: 10px; }
+.missions-list { display: flex; flex-direction: column; gap: 10px; }
+.mission-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 12px 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.05);
+}
+.mission-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.mission-title { font-weight: 600; font-size: 14px; }
+.mission-reward { font-size: 12px; color: #D97706; font-weight: 700; white-space: nowrap; }
+.mission-desc { font-size: 12px; color: #6B7280; margin-top: 4px; }
+.mission-progress-bar {
+    margin-top: 8px;
+    height: 6px;
+    background: #F0F1F3;
+    border-radius: 999px;
+    overflow: hidden;
+}
+.mission-progress-fill { height: 100%; background: #2563EB; border-radius: 999px; }
+.mission-claim-btn {
+    margin-top: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 8px;
+    background: #2563EB;
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+}
+.mission-claim-btn:disabled { background: #D1D5DB; cursor: default; }
+.mission-skeleton {
+    height: 64px;
+    border-radius: 14px;
+    background: linear-gradient(90deg, #EEE 25%, #F5F5F5 50%, #EEE 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+/* --- Toast --- */
+.toast {
+    position: fixed;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #111827;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 13px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all .25s ease;
+    max-width: 90%;
+    text-align: center;
+    z-index: 50;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* --- Duel page --- */
+.duel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+.back-btn {
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    width: 38px; height: 38px;
+    font-size: 18px;
+    cursor: pointer;
+}
+.duel-title { flex: 1; font-weight: 700; font-size: 16px; }
+
+.duel-mode-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #E5E7EB;
+    background: #fff;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    color: #6B7280;
+}
+.tab-btn.active { background: #2563EB; color: #fff; border-color: #2563EB; }
+
+.question-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.06);
+    min-height: 220px;
+}
+.question-loading { text-align: center; color: #9CA3AF; padding: 60px 0; }
+.question-text { font-size: 16px; font-weight: 700; margin-bottom: 16px; line-height: 1.4; }
+.option-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 13px 14px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    border: 1.5px solid #E5E7EB;
+    background: #F9FAFB;
+    font-size: 14px;
+    cursor: pointer;
+    color: #1F2937;
+}
+.option-btn:active { background: #F0F1F3; }
+.option-btn.correct { border-color: #10B981; background: #ECFDF5; color: #047857; font-weight: 700; }
+.option-btn.wrong { border-color: #EF4444; background: #FEF2F2; color: #B91C1C; font-weight: 700; }
+.option-btn:disabled { cursor: default; }
+
+.result-banner {
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+}
+.result-banner.correct { background: #ECFDF5; color: #047857; }
+.result-banner.wrong { background: #FEF2F2; color: #B91C1C; }
+.result-banner.hidden { display: none; }
+
+.next-btn {
+    display: block;
+    width: 100%;
+    margin-top: 14px;
+    padding: 13px;
+    border-radius: 14px;
+    border: none;
+    background: #2563EB;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+}
+.next-btn.hidden { display: none; }
+
+.tutorial-content { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+.tutorial-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.05);
+}
+.tutorial-card h3 { margin: 0 0 6px; font-size: 15px; }
+.tutorial-card p { margin: 0; font-size: 13px; color: #6B7280; line-height: 1.5; }
+
+@media (min-width: 481px) {
+    .app { padding-top: 32px; }
+}
+
+/* ===================== 2-bosqich qo'shimcha stillar ===================== */
+.hidden { display: none !important; }
+
+.text-input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1.5px solid #E5E7EB;
+    font-size: 14px;
+    margin-bottom: 10px;
+    background: #F9FAFB;
+    color: #1F2937;
+}
+
+.search-box { display: flex; gap: 8px; margin-bottom: 14px; }
+.search-box input { flex: 1; padding: 10px 14px; border-radius: 12px; border: 1px solid #E5E7EB; }
+.search-box button {
+    background: #2563EB; color: #fff; border: none; border-radius: 12px;
+    padding: 10px 16px; font-weight: 600; cursor: pointer;
+}
+
+.friends-list { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.friend-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 10px 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.05);
+}
+.friend-avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+.friend-info { flex: 1; min-width: 0; }
+.friend-name { font-weight: 700; font-size: 14px; }
+.friend-sub { font-size: 12px; color: #6B7280; margin-top: 2px; }
+.friend-actions { display: flex; gap: 6px; }
+
+.mini-btn {
+    border: none; border-radius: 10px; padding: 7px 10px;
+    background: #F3F4F6; color: #374151; font-size: 12px; font-weight: 600; cursor: pointer;
+}
+.mini-btn.primary { background: #2563EB; color: #fff; }
+.mini-btn.danger { background: #FEE2E2; color: #B91C1C; }
+.mini-badge {
+    font-size: 11px; padding: 5px 10px; border-radius: 999px;
+    background: #FEF3C7; color: #92400E; font-weight: 600; white-space: nowrap;
+}
+.mini-badge.admin-badge { background: #EDE9FE; color: #6D28D9; margin-left: 6px; }
+
+.rank-badge {
+    width: 32px; text-align: center; font-weight: 700; font-size: 15px; color: #6B7280; flex-shrink: 0;
+}
+
+.score-board {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    font-size: 13px;
+    text-align: center;
+}
+.score-side { flex: 1; }
+.score-vs { font-weight: 700; color: #9CA3AF; padding: 0 10px; }
+
+/* ===================== 3-bosqich: Do'kon / Turnir qo'shimcha stillar ===================== */
+.catalog-scroll {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 4px 0 8px;
+    -webkit-overflow-scrolling: touch;
+}
+.catalog-scroll::-webkit-scrollbar { display: none; }
+.cat-chip {
+    flex-shrink: 0;
+    border: 1px solid #E5E7EB;
+    background: #fff;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #6B7280;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.cat-chip.active { background: #2563EB; color: #fff; border-color: #2563EB; }
+
+.products-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 4px;
+}
+.product-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+.product-image {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+}
+.product-body { padding: 10px 12px 12px; }
+.product-name { font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 4px; }
+.product-price { font-size: 12.5px; font-weight: 700; color: #D97706; }
+.product-price.money { color: #059669; }
+.product-empty { grid-column: 1 / -1; text-align: center; color: #9CA3AF; font-size: 13px; padding: 30px 0; }
+
+.product-detail-image {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+    margin-bottom: 14px;
+}
+.product-detail-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.product-detail-desc { font-size: 13px; color: #6B7280; line-height: 1.5; margin-bottom: 14px; }
+.product-detail-price {
+    font-size: 20px;
+    font-weight: 800;
+    color: #2563EB;
+    margin-bottom: 14px;
+}
+
+.inventory-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 10px 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    margin-bottom: 10px;
+}
+.inventory-img { width: 48px; height: 48px; border-radius: 10px; object-fit: cover; background: #EFF6FF; flex-shrink: 0; }
+.inventory-info { flex: 1; min-width: 0; }
+.inventory-name { font-weight: 700; font-size: 13.5px; }
+.inventory-status { font-size: 11.5px; color: #6B7280; margin-top: 2px; }
+.inventory-actions { display: flex; flex-direction: column; gap: 6px; }
+
+textarea.text-input { resize: vertical; min-height: 70px; font-family: inherit; }
+
+.payment-card-box {
+    background: linear-gradient(135deg, #1E3A8A, #2563EB);
+    color: #fff;
+    border-radius: 16px;
+    padding: 18px;
+    margin: 14px 0;
+    text-align: center;
+}
+.payment-card-number { font-size: 20px; font-weight: 800; letter-spacing: 1px; margin: 8px 0 4px; }
+.payment-card-holder { font-size: 13px; opacity: .85; }
+.payment-timer { font-size: 13px; color: #DC2626; font-weight: 700; text-align: center; margin-top: 8px; }
