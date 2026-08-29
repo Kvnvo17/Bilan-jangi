@@ -1,0 +1,173 @@
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    background: #F5F7FA;
+    color: #1F2937;
+}
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1E3A8A;
+    color: #fff;
+    padding: 14px 24px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.brand { font-weight: 700; font-size: 18px; }
+.brand span { font-weight: 400; opacity: .8; font-size: 13px; margin-left: 6px; }
+.topbar nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 18px;
+    font-size: 14px;
+    opacity: .9;
+}
+.topbar nav a:hover { opacity: 1; text-decoration: underline; }
+.topbar nav a.logout { color: #FCA5A5; }
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
+.page-title { font-size: 22px; margin-bottom: 20px; }
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+}
+.stat-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    text-align: center;
+}
+.stat-value { font-size: 26px; font-weight: 700; color: #2563EB; }
+.stat-label { margin-top: 6px; font-size: 13px; color: #6B7280; }
+
+.notice-box {
+    margin-top: 24px;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    color: #1E40AF;
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.search-form { display: flex; gap: 8px; margin-bottom: 18px; }
+.search-form input {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #D1D5DB;
+    font-size: 14px;
+}
+.search-form button, .login-card button, .data-table button {
+    background: #2563EB;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.data-table button.danger { background: #DC2626; }
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    font-size: 13px;
+}
+.data-table th, .data-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #F0F1F3;
+}
+.data-table th { background: #F9FAFB; color: #6B7280; font-weight: 600; }
+.data-table tr.banned-row { background: #FEF2F2; }
+.actions-cell { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.inline-form { display: flex; gap: 4px; }
+.inline-form input {
+    width: 80px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1px solid #D1D5DB;
+    font-size: 12px;
+}
+.inline-form button { padding: 6px 10px; font-size: 12px; }
+
+.login-wrap { display: flex; justify-content: center; align-items: center; min-height: 80vh; }
+.login-card {
+    background: #fff;
+    padding: 34px 30px;
+    border-radius: 18px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.08);
+    width: 100%;
+    max-width: 340px;
+    text-align: center;
+}
+.login-logo {
+    width: 56px; height: 56px; border-radius: 16px;
+    background: #2563EB; color: #fff; font-size: 26px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 14px;
+}
+.login-card h1 { margin: 0 0 4px; font-size: 20px; }
+.login-card .muted { color: #6B7280; font-size: 13px; margin-bottom: 18px; }
+.login-card label { display: block; text-align: left; font-size: 13px; margin: 10px 0 4px; color: #374151; }
+.login-card input {
+    width: 100%; padding: 10px 12px; border-radius: 10px;
+    border: 1px solid #D1D5DB; font-size: 14px;
+}
+.login-card button { width: 100%; margin-top: 18px; padding: 11px; font-weight: 600; }
+.error-box {
+    background: #FEF2F2; color: #B91C1C; border: 1px solid #FECACA;
+    padding: 8px 12px; border-radius: 8px; font-size: 13px; margin-bottom: 6px;
+}
+
+/* ===================== 4-bosqich: Savollar/Do'kon boshqaruv formalari ===================== */
+.question-form-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.05);
+}
+.question-form-card.inactive-card { opacity: .5; }
+.qf-text {
+    width: 100%;
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: 1px solid #D1D5DB;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+.qf-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    margin-bottom: 8px;
+}
+.qf-options input {
+    padding: 7px 10px;
+    border-radius: 8px;
+    border: 1px solid #D1D5DB;
+    font-size: 12.5px;
+}
+.qf-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.qf-row select, .qf-row input[type="text"] {
+    padding: 7px 10px;
+    border-radius: 8px;
+    border: 1px solid #D1D5DB;
+    font-size: 12.5px;
+}
+.qf-row button { padding: 8px 14px; font-size: 12.5px; }
