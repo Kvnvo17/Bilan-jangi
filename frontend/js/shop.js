@@ -87,7 +87,30 @@ function renderProducts(products) {
         .join("");
 }
 
+async function loadVoucherStatusAndSellButton() {
+    const res = await fetch(`/api/shop/voucher-status/${currentUser.id}`);
+    const status = await res.json();
+    const sellRow = document.getElementById("sellRow");
+    const hint = document.getElementById("voucherHint");
+
+    if (status.has_active_voucher) {
+        const btn = document.createElement("button");
+        btn.className = "mini-btn primary";
+        btn.style.cssText = "flex:1; padding:10px";
+        btn.textContent = "➕ Mahsulot joylash";
+        btn.onclick = () => (location.href = "/shop/sell");
+        sellRow.prepend(btn);
+        hint.classList.add("hidden");
+    } else {
+        hint.classList.remove("hidden");
+        hint.innerHTML =
+            `🔒 Mahsulot joylash (sotish) uchun ham faol Vaucher kerak. ` +
+            `<button class="mini-btn primary" onclick="selectCatalog('vaucher')" style="margin-left:6px">🎟️ Vaucher olish</button>`;
+    }
+}
+
 (async function init() {
     await ensureProfile();
+    await loadVoucherStatusAndSellButton();
     await loadProducts();
 })();
