@@ -26,10 +26,10 @@
             <button class="cat-chip" data-cat="seller" onclick="selectCatalog('seller')">🏪 Sotuvchilar</button>
         </div>
 
-        <div style="display:flex; gap:8px; margin:12px 0">
-            <button class="mini-btn primary" style="flex:1; padding:10px" onclick="location.href='/shop/sell'">➕ Mahsulot joylash</button>
+        <div id="sellRow" style="display:flex; gap:8px; margin:12px 0">
             <button class="mini-btn" style="flex:1; padding:10px" onclick="location.href='/sklad'">📦 Sklad</button>
         </div>
+        <div id="voucherHint" class="notice-hint hidden"></div>
 
         <div id="productsList" class="products-grid"></div>
         <div id="toast" class="toast"></div>
