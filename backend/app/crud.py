@@ -1284,3 +1284,26 @@ async def get_recent_logs(db: AsyncSession, action_filter: str | None = None, li
         stmt = stmt.where(models.AdminLog.action == action_filter)
     result = await db.execute(stmt.limit(limit))
     return list(result.scalars().all())
+
+async def get_voucher_status(db: AsyncSession, user: "models.User") -> dict:
+    """Foydalanuvchining joriy faol vaucher holati — Profil/Do'kon sahifalarida
+    ko'rsatish va "Mahsulot joylash" tugmasini ko'rsatish/yashirish uchun."""
+    voucher = await get_user_active_voucher(db, user)
+    if voucher is None:
+        return {
+            "has_active_voucher": False, "is_vip_plus": False, "expires_at": None,
+            "product_quota_used": 0, "product_quota_total": 0,
+            "paid_quota_used": 0, "paid_quota_total": 0,
+        }
+    product = await get_product(db, voucher.product_id)
+    used_coin = await _count_voucher_purchases(db, user, voucher, price_type="coin")
+    used_money = await _count_voucher_purchases(db, user, voucher, price_type="money") if voucher.is_vip_plus else 0
+    return {
+        "has_active_voucher": True,
+        "is_vip_plus": voucher.is_vip_plus,
+        "expires_at": voucher.expires_at.isoformat(),
+        "product_quota_used": used_coin,
+        "product_quota_total": (product.voucher_product_count or 0) if product else 0,
+        "paid_quota_used": used_money,
+        "paid_quota_total": (product.voucher_paid_count or 0) if (product and voucher.is_vip_plus) else 0,
+    }
