@@ -17,6 +17,11 @@ const currentUser = getTelegramUser();
 let currentQuestion = null;
 let answered = false;
 
+// Har 10 ta savoldan keyin natija ko'rsatish uchun hisoblagich (sessiya davomida)
+let sessionAnswered = 0;
+let sessionCorrect = 0;
+let sessionCoin = 0;
+
 function showToast(text) {
     const toast = document.getElementById("toast");
     toast.textContent = text;
@@ -123,7 +128,31 @@ async function selectAnswer(selectedKey) {
     }
 
     document.getElementById("bCoin").textContent = Number(result.new_b_coin).toFixed(2);
-    document.getElementById("nextBtn").className = "next-btn";
+
+    // Har 10 ta savoldan keyingi natija hisobi
+    sessionAnswered += 1;
+    if (result.is_correct) sessionCorrect += 1;
+    sessionCoin += Number(result.coin_change);
+
+    if (sessionAnswered % 10 === 0) {
+        showBatchSummary();
+    } else {
+        document.getElementById("nextBtn").className = "next-btn";
+    }
+}
+
+function showBatchSummary() {
+    document.getElementById("batchCorrect").textContent = sessionCorrect;
+    document.getElementById("batchCoin").textContent = sessionCoin.toFixed(2);
+    document.getElementById("batchSummary").classList.remove("hidden");
+    // Bu o'nlikdagi hisoblagichlarni tozalaymiz, keyingi 10 tasi uchun
+    sessionCorrect = 0;
+    sessionCoin = 0;
+}
+
+function continueAfterSummary() {
+    document.getElementById("batchSummary").classList.add("hidden");
+    loadNextQuestion();
 }
 
 loadNextQuestion();
