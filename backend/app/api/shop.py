@@ -23,6 +23,13 @@ async def get_single_product(product_id: int, db: AsyncSession = Depends(get_db)
     return schemas.ProductOut.model_validate(product)
 
 
+@router.get("/voucher-status/{telegram_id}", response_model=schemas.VoucherStatusOut)
+async def voucher_status(telegram_id: int, db: AsyncSession = Depends(get_db)):
+    user = await crud.get_or_create_user(db, telegram_id=telegram_id)
+    status = await crud.get_voucher_status(db, user)
+    return schemas.VoucherStatusOut(**status)
+
+
 @router.post("/products/submit", response_model=schemas.ProductOut)
 async def submit_product(payload: schemas.ProductSubmitRequest, db: AsyncSession = Depends(get_db)):
     user = await crud.get_or_create_user(db, telegram_id=payload.telegram_id)
