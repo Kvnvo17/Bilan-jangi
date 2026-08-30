@@ -26,6 +26,15 @@
 
         <div id="resultBanner" class="result-banner hidden"></div>
 
+        <div id="batchSummary" class="batch-summary hidden">
+            <div class="batch-summary-title">📊 10 ta savol natijasi</div>
+            <div class="batch-summary-stats">
+                <div><span id="batchCorrect">0</span>/10 ✅ to'g'ri</div>
+                <div>+<span id="batchCoin">0.00</span> 🪙</div>
+            </div>
+            <button class="next-btn" onclick="continueAfterSummary()">Davom etish →</button>
+        </div>
+
         <button id="nextBtn" class="next-btn hidden" onclick="loadNextQuestion()">Keyingi savol →</button>
 
         <div id="toast" class="toast"></div>
